@@ -1,0 +1,295 @@
+/* พื้นหลังของทั้งเว็บไซต์ */
+body, html {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9; /* พื้นหลังสีอ่อน */
+    margin: 0;
+    padding: 0;
+    background-image: url('image/1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* ตำแหน่งเนื้อหา */
+h1, h2, .content {
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.0); /* พื้นหลังโปร่งใส */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* สไตล์ของ header */
+header {
+    background-color: #007BFF; /* สีน้ำเงิน */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1, h2 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+/* ฟอร์ม */
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    display: block;
+}
+
+form input[type="text"],
+form input[type="password"],
+form select {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+form button {
+    background-color: #007BFF; /* สีน้ำเงิน */
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+}
+
+form button:hover {
+    background-color: #0056b3; /* เปลี่ยนสีเมื่อเลื่อนเมาส์ */
+}
+
+form button:active {
+    transform: scale(0.98);
+    background-color: #004085; /* สีเข้มขึ้นเมื่อคลิก */
+}
+
+/* ตารางผลลัพธ์ */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* พื้นหลังตารางโปร่งแสงเล็กน้อย */
+    overflow-x: auto; /* สำหรับการเลื่อนตารางในแนวนอน */
+    overflow-y: auto; /* สำหรับการเลื่อนตารางในแนวตั้ง */
+}
+
+th, td {
+    border: 1px solid #ddd; /* เส้นขอบ */
+    text-align: left; /* จัดข้อความให้อยู่ตรงกลาง */
+    padding: 8px; /* ระยะห่างภายในเซลล์ */
+}
+
+th {
+    background-color: #007BFF; /* พื้นหลังส่วนหัว */
+    color: white; /* สีข้อความ */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* พื้นหลังบรรทัดเลขคู่ */
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff; /* พื้นหลังบรรทัดเลขคี่ */
+}
+
+tr:hover {
+    background-color: #ddd; /* สีพื้นหลังเมื่อวางเมาส์บนบรรทัด */
+}
+
+/* ข้อความแจ้งเตือน */
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+.alert-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+/* ลิงค์ */
+a {
+    color: #007BFF; /* สีน้ำเงิน */
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    color: #0056b3;
+}
+
+/* ปุ่มเพิ่มรายการ */
+.add-button {
+    text-align: center;
+    margin: 20px 0; /* เพิ่มระยะห่างระหว่างปุ่มกับเนื้อหาอื่น */
+}
+
+.add-button a button {
+    background-color: #4CAF50; /* สีเขียว */
+    color: white; /* ตัวอักษรสีขาว */
+    border: none; /* ไม่มีขอบ */
+    padding: 10px 20px; /* ระยะห่างภายในปุ่ม */
+    font-size: 16px; /* ขนาดตัวอักษร */
+    cursor: pointer; /* เปลี่ยนเคอร์เซอร์เมื่อชี้ */
+    border-radius: 5px; /* ขอบมน */
+    transition: background-color 0.3s ease; /* เพิ่มเอฟเฟกต์การเปลี่ยนสี */
+}
+
+.add-button a button:hover {
+    background-color: #45a049; /* สีเขียวเข้มเมื่อชี้ */
+}
+
+/* การปรับ Responsive */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5em; /* ลดขนาดตัวอักษร */
+    }
+
+    form input[type="text"], form select {
+        font-size: 0.9em; /* ลดขนาดฟอร์ม */
+    }
+
+    table {
+        font-size: 0.9em; /* ลดขนาดตาราง */
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.2em;
+    }
+
+    form {
+        padding: 10px;
+    }
+
+    table {
+        width: 100%; /* ตารางยืดเต็มหน้าจอ */
+    }
+
+    th, td {
+        padding: 5px; /* ลดระยะห่างในเซลล์ */
+    }
+}
+
+/* สไตล์ของแดชบอร์ด */
+.container {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.links a {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 1.1em;
+}
+
+.links a:hover {
+    background-color: #0056b3;
+}
+
+/* ฟุตเตอร์ */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    
+    width: 100%;
+    font-size: 1em;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* ให้คอนเทนเนอร์กินพื้นที่เต็มจอ */
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* ปุ่ม */
+.button-container {
+    display: flex;
+    gap: 20px; /* ระยะห่างระหว่างปุ่ม */
+}
+
+a.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+a.button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+a.button:active {
+    background-color: #3e8e41;
+    transform: scale(1);
+}

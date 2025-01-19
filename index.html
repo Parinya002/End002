@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพิ่มข้อมูลการแข่งขันกีฬา</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>เพิ่มข้อมูลการแข่งขันกีฬา</h1>
+    </header>
+
+    <div class="container">
+        <!-- แสดงผลข้อความแจ้งเตือน -->
+        <div id="successMessage" style="color: green; display: none;">
+            ข้อมูลการแข่งขันถูกเพิ่มเรียบร้อยแล้ว!
+        </div>
+        <div id="errorMessage" style="color: red; display: none;">
+            เกิดข้อผิดพลาดในการเพิ่มข้อมูล
+        </div>
+
+        <!-- ฟอร์มกรอกข้อมูล -->
+        <form id="addMatchForm" method="POST" action="add_match.php">
+            <div>
+                <label for="match_name">ชื่อการแข่งขัน:</label>
+                <input type="text" id="match_name" name="match_name" required>
+            </div>
+            <div>
+                <label for="score">คะแนน:</label>
+                <input type="text" id="score" name="score" required>
+            </div>
+            <div>
+                <label for="sports">ประเภทกีฬา:</label>
+                <select id="sports" name="sports" required>
+                    <option value="football">ฟุตบอล</option>
+                    <option value="basketball">บาสเกตบอล</option>
+                    <option value="volleyball">วอลเลย์บอล</option>
+                    <option value="tennis">เทนนิส</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit">เพิ่มข้อมูล</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 รายงานผลการแข่งขันกีฬา</p>
+    </footer>
+
+    <script>
+        // ตัวอย่างการแสดงข้อความแจ้งเตือน (สามารถแก้ไขตามการตอบกลับของ PHP)
+        // สมมติว่ามีการส่งข้อมูลสำเร็จ
+        document.getElementById('successMessage').style.display = 'block';
+
+        // สมมติว่ามีการเกิดข้อผิดพลาด
+        // document.getElementById('errorMessage').style.display = 'block';
+    </script>
+
+</body>
+</html>
