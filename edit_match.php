@@ -73,6 +73,9 @@ $conn->close();
     </header>
 
     <div class="container">
+        <div class="button-container">
+            <a href="admin_index.php" class="button-link">กลับไปหน้าหลัก</a>
+        </div>
         <form method="POST" action="">
             <label for="match_name_1">ชื่อทีม 1:</label>
             <input type="text" id="match_name_1" name="match_name_1" value="<?php echo isset($match['match_name_1']) ? htmlspecialchars($match['match_name_1']) : ''; ?>" required>
@@ -93,9 +96,6 @@ $conn->close();
 
             <button type="submit">บันทึกการแก้ไข</button>
         </form>
-        <div>
-        <a href="admin_index.php" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">กลับไปหน้าหลัก</a>
-        </div>
     </div>
 
     <footer>

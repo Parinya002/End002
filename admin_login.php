@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <header>
         <h2>เข้าสู่ระบบ</h2>
     </header>
+    <div class="container">
     <?php
     if (isset($error_message)) {
         echo "<p style='color:red;'>$error_message</p>";
@@ -75,5 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </script>
         <button type="submit">เข้าสู่ระบบ</button>
     </form>
+</div>
 </body>
 </html>

@@ -58,28 +58,27 @@ try {
 </head>
 <body>
     <h1>เพิ่มผู้ดูแลระบบใหม่</h1>
+        <form method="POST" action="add_admin.php">
+            <label for="username">ชื่อผู้ใช้:</label>
+            <input type="text" id="username" name="username" required><br>
 
-    <form method="POST" action="add_admin.php">
-        <label for="username">ชื่อผู้ใช้:</label>
-        <input type="text" id="username" name="username" required><br>
+            <label for="password">รหัสผ่าน:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="button" id="togglePassword">แสดง</button><br>
 
-        <label for="password">รหัสผ่าน:</label>
-<input type="password" id="password" name="password" required>
-<button type="button" id="togglePassword">แสดง</button><br>
+            <script>
+                const passwordField = document.getElementById("password");
+                const togglePassword = document.getElementById("togglePassword");
 
-<script>
-    const passwordField = document.getElementById("password");
-    const togglePassword = document.getElementById("togglePassword");
-
-    togglePassword.addEventListener("click", function() {
-        const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
-        passwordField.setAttribute("type", type);
-        this.textContent = type === "password" ? "แสดง" : "ซ่อน";
-    });
-</script>
+                togglePassword.addEventListener("click", function() {
+                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+                passwordField.setAttribute("type", type);
+                this.textContent = type === "password" ? "แสดง" : "ซ่อน";
+                });
+            </script>
 
 
-        <button type="submit">เพิ่มผู้ดูแลระบบ</button>
-    </form>
+            <button type="submit">เพิ่มผู้ดูแลระบบ</button>
+        </form>
 </body>
 </html>

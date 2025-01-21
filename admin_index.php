@@ -111,9 +111,9 @@ $conn->close();
         </table>
 
         <!-- ปุ่มเพิ่มข้อมูล -->
-        <div style="margin-top: 20px; text-align: center;">
-            <a href="add_match.php" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">เพิ่มข้อมูลการแข่งขัน</a>
-        </div>
+        <div class="button-container">>
+            <a href="add_match.php" class="button-link">เพิ่มข้อมูลการแข่งขัน</a>
+        </>
     </div>
 
     <footer>

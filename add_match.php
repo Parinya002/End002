@@ -62,6 +62,12 @@ $conn->close();
     </header>
 
     <div class="container">
+        <!-- ปุ่มกลับหน้า index.php -->
+        <div>
+            <a href="admin_index.php" style="display: inline-block; padding: 10px 20px; margin-top: 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px;">
+                กลับสู่หน้าแรก
+            </a>
+        </div>
         <!-- แสดงผลข้อความแจ้งเตือน -->
         <?php if ($successMessage): ?>
             <p style="color: green;"><?php echo $successMessage; ?></p>
@@ -97,13 +103,6 @@ $conn->close();
                 <button type="submit">เพิ่มข้อมูล</button>
             </div>
         </form>
-
-        <!-- ปุ่มกลับหน้า index.php -->
-        <div>
-            <a href="admin_index.php" style="display: inline-block; padding: 10px 20px; margin-top: 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px;">
-                กลับสู่หน้าแรก
-            </a>
-        </div>
     </div>
 
     <footer>

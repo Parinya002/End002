@@ -38,13 +38,14 @@ header h1, h2 {
 
 /* ฟอร์ม */
 form {
-    background-color: #ffffff;
-    padding: 20px;
-    margin: 20px auto;
-    border-radius: 8px;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* สีพื้นหลัง */
+    padding: 20px; /* ระยะห่างด้านใน */
+    margin: auto; /* จัดให้อยู่ตรงกลางแนวนอน */
+    border-radius: 8px; /* มุมโค้งมน */
+    max-width: 600px; /* ความกว้างสูงสุด */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เงาด้านหลัง */
 }
+
 
 form label {
     font-size: 1.1em;
@@ -222,7 +223,6 @@ a:active {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
     gap: 20px;
 }
 
@@ -264,18 +264,39 @@ p {
     font-size: 16px;
     color: #ffffff;
     margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.0); /* พื้นหลังตารางโปร่งแสงเล็กน้อย */
+    text-align: center;
 }
 
 /* ปุ่ม */
 .button-container {
     display: flex;
+    justify-content: center; /* จัดแนวนอนตรงกลาง */
+    align-items: center; /* จัดแนวตั้งตรงกลาง */
     gap: 20px; /* ระยะห่างระหว่างปุ่ม */
+    padding: 20px;
 }
+
+.button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* สีพื้นหลังของปุ่ม */
+    color: white; /* สีตัวอักษร */
+    text-decoration: none; /* ลบขีดเส้นใต้ */
+    border-radius: 5px; /* มุมโค้งมน */
+    font-size: 1.2rem; /* ขนาดตัวอักษร */
+    transition: background-color 0.3s ease; /* เพิ่มเอฟเฟกต์เมื่อวางเมาส์ */
+}
+
+.button-link:hover {
+    background-color: #ff0000; /* สีเมื่อวางเมาส์บนปุ่ม */
+}
+
 
 a.button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #007bff;
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -292,4 +313,22 @@ a.button:hover {
 a.button:active {
     background-color: #3e8e41;
     transform: scale(1);
+}
+y {
+    padding: 20px;
+    font-size: 16px;
+    color: white;
+    margin: 20px;
+    background-color: #007bff; /* พื้นหลังตารางโปร่งแสงเล็กน้อย */
+    text-align: center;
+
+}
+.success-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem; /* ขนาดตัวอักษรใหญ่ขึ้น */
+    color: #333; /* สีตัวอักษร */
+    text-align: center;
+
 }

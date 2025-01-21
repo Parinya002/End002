@@ -20,10 +20,13 @@ if (!isset($_SESSION['admin_id'])) {
 <header>
     <h1>ยินดีต้อนรับสู่แดชบอร์ดผู้ดูแล</h1>
 </header>
-<form method="POST">
+<div class="success-message">
     <y>คุณได้เข้าสู่ระบบสำเร็จแล้ว</y>
-    <a href="admin_index.php" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">ดูข้อมูลการแข่งขัน</a> |
-    <a href="admin_logout.php" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">ออกจากระบบ</a>
-</form>
+</div>
+<div class="button-container">
+    <a href="add_admin.php" class="button-link">เพิ่มผู้ดูแล</a>
+    <a href="admin_index.php" class="button-link">ดูข้อมูลการแข่งขัน</a>
+    <a href="admin_logout.php" class="button-link">ออกจากระบบ</a>
+</div>
 </body>
 </html>
