@@ -1,4 +1,5 @@
 <?php
+session_start();
 // เชื่อมต่อฐานข้อมูล
 $servername = "localhost";
 $username = "root";
@@ -58,6 +59,12 @@ try {
 </head>
 <body>
     <h1>เพิ่มผู้ดูแลระบบใหม่</h1>
+
+    <div class="container">
+        <div class="button-container">
+            <a href="admin_dashboard.php" class="button-link">กลับไปหน้าแดชบอร์ด</a>
+        </div>
+
         <form method="POST" action="add_admin.php">
             <label for="username">ชื่อผู้ใช้:</label>
             <input type="text" id="username" name="username" required><br>

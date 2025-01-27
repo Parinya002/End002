@@ -1,9 +1,10 @@
 <?php
+session_start();
 // เชื่อมต่อฐานข้อมูล
 $servername = "localhost";
-$username = "root";  
-$password = "";  
-$dbname = "sports_db";  
+$username = "root";
+$password = "";
+$dbname = "sports_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -17,7 +18,7 @@ $match_id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : 
 
 if ($match_id) {
     // ดึงข้อมูลการแข่งขันจากฐานข้อมูลโดยใช้ match_id
-    $stmt = $conn->prepare("SELECT match_name_1, match_name_2, score, sports FROM results WHERE id = ?");
+    $stmt = $conn->prepare("SELECT match_name_1, match_name_2, score_team_1, score_team_2, sports FROM results WHERE id = ?");
     $stmt->bind_param("i", $match_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -28,28 +29,30 @@ if ($match_id) {
     } else {
         die("ไม่พบข้อมูลการแข่งขันนี้");
     }
+    $stmt->close();
 } else {
     die("ไม่มี match_id ที่จะทำการแก้ไข");
 }
 
 // ตรวจสอบว่าได้รับการส่งฟอร์ม (POST) หรือไม่
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // รับค่าจากฟอร์ม
-    $match_name_1 = $_POST['match_name_1'];
-    $match_name_2 = $_POST['match_name_2'];
-    $score = $_POST['score'];
-    $sports = $_POST['sports'];
+    // รับค่าจากฟอร์มและกรองข้อมูล
+    $match_name_1 = htmlspecialchars($_POST['match_name_1']);
+    $match_name_2 = htmlspecialchars($_POST['match_name_2']);
+    $score_team_1 = filter_var($_POST['score_team_1'], FILTER_VALIDATE_INT);
+    $score_team_2 = filter_var($_POST['score_team_2'], FILTER_VALIDATE_INT);
+    $sports = htmlspecialchars($_POST['sports']);
 
     // อัพเดตข้อมูลการแข่งขันในฐานข้อมูล
-    $stmt = $conn->prepare("UPDATE results SET match_name_1 = ?, match_name_2 = ?, score = ?, sports = ? WHERE id = ?");
-    $stmt->bind_param("sssssi", $match_name_1, $match_name_2, $score, $sports, $winner, $match_id);
+    $stmt = $conn->prepare("UPDATE results SET match_name_1 = ?, match_name_2 = ?, score_team_1 = ?, score_team_2 = ?, sports = ? WHERE id = ?");
+    $stmt->bind_param("ssiisi", $match_name_1, $match_name_2, $score_team_1, $score_team_2, $sports, $match_id);
     $stmt->execute();
 
     // ตรวจสอบว่าอัพเดตข้อมูลสำเร็จหรือไม่
     if ($stmt->affected_rows > 0) {
-        echo "<p>การแก้ไขข้อมูลสำเร็จ!</p>";
+        echo "<p style='color: green;'>การแก้ไขข้อมูลสำเร็จ!</p>";
     } else {
-        echo "<p>ไม่พบการเปลี่ยนแปลงที่ต้องการบันทึก!</p>";
+        echo "<p style='color: red;'>ไม่พบการเปลี่ยนแปลงที่ต้องการบันทึก!</p>";
     }
 
     $stmt->close();
@@ -76,15 +79,35 @@ $conn->close();
         <div class="button-container">
             <a href="admin_index.php" class="button-link">กลับไปหน้าหลัก</a>
         </div>
+
         <form method="POST" action="">
             <label for="match_name_1">ชื่อทีม 1:</label>
-            <input type="text" id="match_name_1" name="match_name_1" value="<?php echo isset($match['match_name_1']) ? htmlspecialchars($match['match_name_1']) : ''; ?>" required>
+            <input type="text" id="match_name_1" name="match_name_1" value="<?php echo htmlspecialchars($match['match_name_1']); ?>" required>
 
             <label for="match_name_2">ชื่อทีม 2:</label>
-            <input type="text" id="match_name_2" name="match_name_2" value="<?php echo isset($match['match_name_2']) ? htmlspecialchars($match['match_name_2']) : ''; ?>" required>
+            <input type="text" id="match_name_2" name="match_name_2" value="<?php echo htmlspecialchars($match['match_name_2']); ?>" required>
 
-            <label for="score">คะแนน:</label>
-            <input type="text" id="score" name="score" value="<?php echo isset($match['score']) ? htmlspecialchars($match['score']) : ''; ?>" required>
+            <label for="score_team_1">คะแนนทีม 1:</label>
+            <select id="score_team_1" name="score_team_1" required>
+                <option value="">-- เลือกคะแนน --</option>
+                <?php 
+                for ($i = 0; $i <= 150; $i++) {
+                    $selected = ($i == $match['score_team_1']) ? 'selected' : '';
+                    echo "<option value=\"$i\" $selected>$i</option>";
+                }
+                ?>
+            </select>
+
+            <label for="score_team_2">คะแนนทีม 2:</label>
+            <select id="score_team_2" name="score_team_2" required>
+                <option value="">-- เลือกคะแนน --</option>
+                <?php 
+                for ($i = 0; $i <= 150; $i++) {
+                    $selected = ($i == $match['score_team_2']) ? 'selected' : '';
+                    echo "<option value=\"$i\" $selected>$i</option>";
+                }
+                ?>
+            </select>
 
             <label for="sports">ประเภทกีฬา:</label>
             <select id="sports" name="sports" required>
@@ -101,6 +124,5 @@ $conn->close();
     <footer>
         <p>รายงานผลการแข่งขันกีฬา</p>
     </footer>
-
 </body>
 </html>

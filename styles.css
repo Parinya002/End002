@@ -4,7 +4,7 @@ body, html {
     background-color: #f4f4f9; /* พื้นหลังสีอ่อน */
     margin: 0;
     padding: 0;
-    background-image: url('image/1.jpg');
+    background-image: url('image/sports.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -17,15 +17,17 @@ body, html {
 /* ตำแหน่งเนื้อหา */
 h1, h2, .content {
     text-align: center;
-    color: white;
-    background: rgba(0, 0, 0, 0.0); /* พื้นหลังโปร่งใส */
+    color: black; /* เปลี่ยนสีฟอนต์ให้ตัดกับพื้นหลัง */
+    background: rgba(171, 224, 255, 0.4); /* เพิ่มพื้นหลังขาวโปร่งแสง */
     padding: 20px;
     border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเพื่อให้ข้อความเด่น */
 }
+
 
 /* สไตล์ของ header */
 header {
-    background-color: #007BFF; /* สีน้ำเงิน */
+    
     color: white;
     padding: 20px;
     text-align: center;
@@ -49,8 +51,8 @@ form {
 
 form label {
     font-size: 1.1em;
-    margin-bottom: 8px;
     display: block;
+    line-height: 2.5;
 }
 
 form input[type="text"],

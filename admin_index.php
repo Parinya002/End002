@@ -3,16 +3,15 @@ session_start(); // เริ่มต้น session
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินแล้วหรือไม่
 if (!isset($_SESSION['admin_id'])) {
-    // ถ้ายังไม่ได้เข้าสู่ระบบ ให้เปลี่ยนเส้นทางไปยังหน้า login
     header("Location: admin_login.php");
     exit();
 }
 
 // เชื่อมต่อฐานข้อมูล
 $servername = "localhost";
-$username = "root";  // ชื่อผู้ใช้ฐานข้อมูล
-$password = "";  // รหัสผ่านฐานข้อมูล
-$dbname = "sports_db";   // ชื่อฐานข้อมูล
+$username = "root";
+$password = "";
+$dbname = "sports_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -22,17 +21,15 @@ if ($conn->connect_error) {
 }
 
 // กำหนดตัวแปรประเภทกีฬา (ถ้ามีการเลือก)
-$sport = isset($_POST['sports']) ? $_POST['sports'] : '';
+$sport = isset($_POST['sports']) ? filter_var($_POST['sports'], FILTER_SANITIZE_STRING) : '';
 
 // สร้างคำสั่ง SQL สำหรับดึงข้อมูล
 if ($sport) {
-    // กรองข้อมูลตามประเภทกีฬา
-    $sql = "SELECT id, match_name_1, match_name_2, score, sports FROM results WHERE sports = ?";
+    $sql = "SELECT id, match_name_1, match_name_2, CONCAT(score_team_1, ' - ', score_team_2) AS score, sports FROM results WHERE sports = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $sport);
 } else {
-    // ดึงข้อมูลทั้งหมดถ้าไม่ได้เลือกประเภทกีฬา
-    $sql = "SELECT id, match_name_1, match_name_2, score, sports FROM results";
+    $sql = "SELECT id, match_name_1, match_name_2, CONCAT(score_team_1, ' - ', score_team_2) AS score, sports FROM results";
     $stmt = $conn->prepare($sql);
 }
 
@@ -40,9 +37,8 @@ if ($sport) {
 $stmt->execute();
 $result = $stmt->get_result();
 
-// ปิดการเชื่อมต่อฐานข้อมูล
+// ปิด statement แต่ยังไม่ปิด connection (ยังใช้ต่อได้)
 $stmt->close();
-$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -55,10 +51,13 @@ $conn->close();
 <body>
     <header>
         <h1>ข้อมูลการแข่งขันกีฬา</h1>
-        <!-- ลิงก์ออกจากระบบ -->
-        <a href="admin_logout.php" style="text-decoration: none; color: red;">ออกจากระบบ</a> |
-        <!-- ลิงก์ไปยังแดชบอร์ด -->
-        <a href="admin_dashboard.php" style="text-decoration: none; color: green;">แดชบอร์ด</a>
+        <div class="container">
+            <div>
+                <!-- ลิงก์ออกจากระบบ -->
+                <a href="admin_logout.php" style="display: inline-block; padding: 10px 20px; margin-top: 20px; background-color:rgb(255, 0, 0); color: white; text-decoration: none; border-radius: 5px;">ออกจากระบบ</a> |
+                <a href="admin_dashboard.php" style="display: inline-block; padding: 10px 20px; margin-top: 20px; background-color:rgb(43, 163, 65); color: white; text-decoration: none; border-radius: 5px;">แดชบอร์ด</a>
+            </div>
+        </div>
     </header>
 
     <div class="container">
@@ -111,9 +110,9 @@ $conn->close();
         </table>
 
         <!-- ปุ่มเพิ่มข้อมูล -->
-        <div class="button-container">>
+        <div class="button-container">
             <a href="add_match.php" class="button-link">เพิ่มข้อมูลการแข่งขัน</a>
-        </>
+        </div>
     </div>
 
     <footer>

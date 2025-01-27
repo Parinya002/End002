@@ -1,4 +1,5 @@
 <?php
+session_start();
 // เชื่อมต่อฐานข้อมูล
 $servername = "localhost";
 $username = "root";  
@@ -21,16 +22,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // รับข้อมูลจากฟอร์ม
     $match_name_1 = $_POST['match_name_1'];
     $match_name_2 = $_POST['match_name_2'];
-    $score = $_POST['score'];
+    $score_team_1 = $_POST['score_team_1'];
+    $score_team_2 = $_POST['score_team_2'];
     $sports = $_POST['sports'];
 
     // ตรวจสอบข้อมูลให้แน่ใจว่าไม่ว่าง
-    if (empty($match_name_1) || empty($match_name_2) || empty($score) || empty($sports)) {
+    if (empty($match_name_1) || empty($match_name_2) || empty($score_team_1) || empty($score_team_2) || empty($sports)) {
         $errorMessage = "กรุณากรอกข้อมูลให้ครบถ้วน";
     } else {
         // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
-        $stmt = $conn->prepare("INSERT INTO results (match_name_1, match_name_2, score, sports) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $match_name_1, $match_name_2, $score, $sports);
+        $stmt = $conn->prepare("INSERT INTO results (match_name_1, match_name_2, score_team_1, score_team_2, sports) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssdds", $match_name_1, $match_name_2, $score_team_1, $score_team_2, $sports);
 
         // ประมวลผลคำสั่ง SQL
         if ($stmt->execute()) {
@@ -86,8 +88,22 @@ $conn->close();
                 <input type="text" id="match_name_2" name="match_name_2" required>
             </div>
             <div>
-                <label for="score">คะแนน:</label>
-                <input type="text" id="score" name="score" required>
+                <label for="score_team_1">คะแนนทีม 1:</label>
+                <select id="score_team_1" name="score_team_1" required>
+                    <option value="">-- เลือกคะแนน --</option>
+                    <?php for ($i = 0; $i <= 150; $i++): ?>
+                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <?php endfor; ?>
+                </select>
+            </div>
+            <div>
+                <label for="score_team_2">คะแนนทีม 2:</label>
+                <select id="score_team_2" name="score_team_2" required>
+                    <option value="">-- เลือกคะแนน --</option>
+                    <?php for ($i = 0; $i <= 150; $i++): ?>
+                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <?php endfor; ?>
+                </select>
             </div>
             <div>
                 <label for="sports">ประเภทกีฬา:</label>
