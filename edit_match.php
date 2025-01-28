@@ -68,7 +68,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แก้ไขข้อมูลการแข่งขันกีฬา</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -81,42 +81,33 @@ $conn->close();
         </div>
 
         <form method="POST" action="">
-            <label for="match_name_1">ชื่อทีม 1:</label>
-            <input type="text" id="match_name_1" name="match_name_1" value="<?php echo htmlspecialchars($match['match_name_1']); ?>" required>
-
-            <label for="match_name_2">ชื่อทีม 2:</label>
-            <input type="text" id="match_name_2" name="match_name_2" value="<?php echo htmlspecialchars($match['match_name_2']); ?>" required>
-
-            <label for="score_team_1">คะแนนทีม 1:</label>
-            <select id="score_team_1" name="score_team_1" required>
-                <option value="">-- เลือกคะแนน --</option>
-                <?php 
-                for ($i = 0; $i <= 150; $i++) {
-                    $selected = ($i == $match['score_team_1']) ? 'selected' : '';
-                    echo "<option value=\"$i\" $selected>$i</option>";
-                }
-                ?>
-            </select>
-
-            <label for="score_team_2">คะแนนทีม 2:</label>
-            <select id="score_team_2" name="score_team_2" required>
-                <option value="">-- เลือกคะแนน --</option>
-                <?php 
-                for ($i = 0; $i <= 150; $i++) {
-                    $selected = ($i == $match['score_team_2']) ? 'selected' : '';
-                    echo "<option value=\"$i\" $selected>$i</option>";
-                }
-                ?>
-            </select>
-
-            <label for="sports">ประเภทกีฬา:</label>
-            <select id="sports" name="sports" required>
-                <option value="football" <?php echo ($match['sports'] == 'football') ? 'selected' : ''; ?>>ฟุตบอล</option>
-                <option value="basketball" <?php echo ($match['sports'] == 'basketball') ? 'selected' : ''; ?>>บาสเกตบอล</option>
-                <option value="volleyball" <?php echo ($match['sports'] == 'volleyball') ? 'selected' : ''; ?>>วอลเลย์บอล</option>
-                <option value="tennis" <?php echo ($match['sports'] == 'tennis') ? 'selected' : ''; ?>>เทนนิส</option>
-            </select>
-
+            <div>
+                <label for="sports">ประเภทกีฬา:</label>
+                <select id="sports" name="sports" required>
+                    <option value="">-- เลือกประเภทกีฬา --</option>
+                    <option value="football">ฟุตบอล</option>
+                    <option value="basketball">บาสเกตบอล</option>
+                    <option value="volleyball">วอลเลย์บอล</option>
+                    <option value="tennis">เทนนิส</option>
+                </select>
+            </div>
+            <div>
+            <div>
+                <label for="match_name_1">ชื่อทีม 1:</label>
+                <input type="text" id="match_name_1" name="match_name_1" value="<?php echo htmlspecialchars($match['match_name_1']); ?>" required>
+            </div>
+            <div>
+                <label for="score_team_1">คะแนนทีม 1:</label>
+                <input type="text" id="score_team_1" name="score_team_1" value="<?php echo htmlspecialchars($match['score_team_1']); ?>" required>
+            </div>
+            <div>
+                <label for="match_name_2">ชื่อทีม 2:</label>
+                <input type="text" id="match_name_2" name="match_name_2" value="<?php echo htmlspecialchars($match['match_name_2']); ?>" required>
+            </div>
+            <div>
+                <label for="score_team_2">คะแนนทีม 2:</label>
+                <input type="text" id="score_team_2" name="score_team_2" value="<?php echo htmlspecialchars($match['score_team_2']); ?>" required>
+            </div>
             <button type="submit">บันทึกการแก้ไข</button>
         </form>
     </div>

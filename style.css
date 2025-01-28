@@ -1,0 +1,141 @@
+/* General Styles */
+body, html {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9; /* พื้นหลังสีอ่อน */
+    margin: 0;
+    padding: 0;
+    background-image: url('image/sports.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* ตำแหน่งเนื้อหา */
+h1, h2, .content {
+    text-align: center;
+    color: black; /* เปลี่ยนสีฟอนต์ให้ตัดกับพื้นหลัง */
+    background: rgba(171, 224, 255, 0.4); /* เพิ่มพื้นหลังขาวโปร่งแสง */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเพื่อให้ข้อความเด่น */
+}
+
+
+/* สไตล์ของ header */
+header {
+    
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1, h2 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+/* Container */
+.container {
+    max-width: 650px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+form input,
+form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 95%;
+}
+
+form button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 99%;
+}
+
+form button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Alert Messages */
+p {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+p[style*="color: green"] {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+p[style*="color: red"] {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+/* Back Button */
+a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    
+    width: 95%;
+    font-size: 1em;
+}
