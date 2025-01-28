@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 
 // สร้างเงื่อนไขการค้นหา
-$sql = "SELECT * FROM results WHERE 1";
+$sql = "SELECT match_name_1, match_name_2, score_team_1, score_team_2, sports FROM results WHERE 1";
 
 if (!empty($searchMatchName)) {
     $sql .= " AND (match_name_1 LIKE ? OR match_name_2 LIKE ?)";
@@ -38,6 +38,9 @@ if (!empty($searchSports)) {
 }
 
 $stmt = $conn->prepare($sql);
+if ($stmt === false) {
+    die("Error preparing the statement: " . $conn->error);
+}
 
 // Binding parameters
 if (!empty($searchMatchName) && !empty($searchSports)) {
@@ -64,14 +67,10 @@ if ($result) {
 $conn->close();
 
 // ฟังก์ชั่นคำนวณทีมชนะ
-function getWinner($score) {
-    // แยกคะแนนของแต่ละทีมออกจากกัน
-    list($team1_score, $team2_score) = explode('-', $score);
-
-    // เปรียบเทียบคะแนนเพื่อหาทีมชนะ
-    if ($team1_score > $team2_score) {
+function getWinner($score_team_1, $score_team_2) {
+    if ($score_team_1 > $score_team_2) {
         return 'team1'; // ทีม 1 ชนะ
-    } elseif ($team2_score > $team1_score) {
+    } elseif ($score_team_2 > $score_team_1) {
         return 'team2'; // ทีม 2 ชนะ
     } else {
         return 'draw'; // หากคะแนนเท่ากัน
@@ -89,13 +88,13 @@ function getWinner($score) {
 </head>
 
 <body>
-    <div class="content">
+    <div>
         <header>
             <h1>ข้อมูลการแข่งขันกีฬา</h1>
         </header>
     </div>
 
-    <div class="container" class="scrollable-vertical">
+    <div class="container">
         <!-- ฟอร์มค้นหาหรือกรองข้อมูล -->
         <form method="GET" action="">
             <label for="search_match_name">ชื่อทีม:</label>
@@ -115,14 +114,15 @@ function getWinner($score) {
 
         <!-- ตรวจสอบว่า $matches มีข้อมูลหรือไม่ -->
         <?php if (!empty($matches)): ?>
-            <table border="1" cellpadding="10" style="margin-top: 20px;">
+            <table border="1" cellpadding="10" style="margin-top: 20px; width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr>
                         <th>ชื่อทีม 1</th>
                         <th>ชื่อทีม 2</th>
-                        <th>คะแนน</th>
+                        <th>คะแนนทีม 1</th>
+                        <th>คะแนนทีม 2</th>
                         <th>ประเภทกีฬา</th>
-                        <th>ทีมชนะ</th> <!-- คอลัมน์ทีมชนะ -->
+                        <th>ทีมชนะ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -130,21 +130,22 @@ function getWinner($score) {
                         <tr>
                             <td><?php echo htmlspecialchars($match['match_name_1']); ?></td>
                             <td><?php echo htmlspecialchars($match['match_name_2']); ?></td>
-                            <td><?php echo htmlspecialchars($match['score']); ?></td>
+                            <td><?php echo htmlspecialchars($match['score_team_1']); ?></td>
+                            <td><?php echo htmlspecialchars($match['score_team_2']); ?></td>
                             <td><?php echo htmlspecialchars($match['sports']); ?></td>
                             <td>
                                 <?php 
                                     // แสดงทีมชนะเป็นตัวหนา
-                                    $winner = getWinner($match['score']);
+                                    $winner = getWinner($match['score_team_1'], $match['score_team_2']);
                                     if ($winner == 'team1') {
-                                        echo "<strong>" . htmlspecialchars($match['match_name_1']) . "</strong>"; // ทีม 1 ชนะ
+                                        echo "<strong>" . htmlspecialchars($match['match_name_1']) . "</strong>";
                                     } elseif ($winner == 'team2') {
-                                        echo "<strong>" . htmlspecialchars($match['match_name_2']) . "</strong>"; // ทีม 2 ชนะ
+                                        echo "<strong>" . htmlspecialchars($match['match_name_2']) . "</strong>";
                                     } else {
-                                        echo "<strong>เสมอ</strong>"; // ถ้าเสมอ
+                                        echo "<strong>เสมอ</strong>";
                                     }
                                 ?>
-                            </td> <!-- แสดงทีมชนะ -->
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

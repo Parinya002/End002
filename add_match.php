@@ -2,9 +2,9 @@
 session_start();
 // เชื่อมต่อฐานข้อมูล
 $servername = "localhost";
-$username = "root";  
-$password = "";  
-$dbname = "sports_db";  
+$username = "root";
+$password = "";
+$dbname = "sports_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sports = $_POST['sports'];
 
     // ตรวจสอบข้อมูลให้แน่ใจว่าไม่ว่าง
-    if (empty($match_name_1) || empty($match_name_2) || empty($score_team_1) || empty($score_team_2) || empty($sports)) {
+    if (empty($match_name_1) || empty($match_name_2) || !is_numeric($score_team_1) || !is_numeric($score_team_2) || empty($sports)) {
         $errorMessage = "กรุณากรอกข้อมูลให้ครบถ้วน";
     } else {
         // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
@@ -72,39 +72,14 @@ $conn->close();
         </div>
         <!-- แสดงผลข้อความแจ้งเตือน -->
         <?php if ($successMessage): ?>
-            <p style="color: green;"><?php echo $successMessage; ?></p>
+            <p style="color: green;"><?php echo htmlspecialchars($successMessage); ?></p>
         <?php elseif ($errorMessage): ?>
-            <p style="color: red;"><?php echo $errorMessage; ?></p>
+            <p style="color: red;"><?php echo htmlspecialchars($errorMessage); ?></p>
         <?php endif; ?>
 
         <!-- ฟอร์มกรอกข้อมูล -->
+        <div class="container">
         <form method="POST" action="">
-            <div>
-                <label for="match_name_1">ชื่อทีม 1:</label>
-                <input type="text" id="match_name_1" name="match_name_1" required>
-            </div>
-            <div>
-                <label for="match_name_2">ชื่อทีม 2:</label>
-                <input type="text" id="match_name_2" name="match_name_2" required>
-            </div>
-            <div>
-                <label for="score_team_1">คะแนนทีม 1:</label>
-                <select id="score_team_1" name="score_team_1" required>
-                    <option value="">-- เลือกคะแนน --</option>
-                    <?php for ($i = 0; $i <= 150; $i++): ?>
-                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                    <?php endfor; ?>
-                </select>
-            </div>
-            <div>
-                <label for="score_team_2">คะแนนทีม 2:</label>
-                <select id="score_team_2" name="score_team_2" required>
-                    <option value="">-- เลือกคะแนน --</option>
-                    <?php for ($i = 0; $i <= 150; $i++): ?>
-                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                    <?php endfor; ?>
-                </select>
-            </div>
             <div>
                 <label for="sports">ประเภทกีฬา:</label>
                 <select id="sports" name="sports" required>
@@ -116,10 +91,36 @@ $conn->close();
                 </select>
             </div>
             <div>
+            <div>
+                <label for="match_name_1">ชื่อทีม 1:</label>
+                <input type="text" id="match_name_1" name="match_name_1" placeholder="กรอกชื่อทีม 1"required>
+            </div>
+            <div>
+                <label for="score_team_1">คะแนนทีม 1:</label>
+                <input type="text" id="score_team_1" name="score_team_1" placeholder="กรอกคะแนนทีม 1" required>
+            </div>
+            <div>
+                <label for="match_name_2">ชื่อทีม 2:</label>
+                <input type="text" id="match_name_2" name="match_name_2" placeholder="กรอกชื่อทีม 2" required>
+            </div>
+            <div>
+                <label for="score_team_2">คะแนนทีม 2:</label>
+                <input type="text" id="score_team_2" name="score_team_2" placeholder="กรอกคะแนนทีม 2" required>
+            </div>
                 <button type="submit">เพิ่มข้อมูล</button>
             </div>
         </form>
     </div>
+
+    <script>
+        document.getElementById('score_team_1').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, ''); // อนุญาตเฉพาะตัวเลข
+        });
+
+        document.getElementById('score_team_2').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, ''); // อนุญาตเฉพาะตัวเลข
+        });
+    </script>
 
     <footer>
         <p>รายงานผลการแข่งขันกีฬา</p>
